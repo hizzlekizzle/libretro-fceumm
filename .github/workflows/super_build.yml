@@ -45,7 +45,11 @@ jobs:
     - name: Move lib out of libretro-super structure
       run: cp libretro-super/dist/*/fceumm_libretro* ./
     - name: Zip it up
+      if: matrix.os != 'windows-latest'
       run: zip -9 fceumm_libretro.zip fceumm_libretro.*
+    - name: Windows zip it up
+      if: matrix.os == 'windows-latest'
+      run: msys2do zip -9 fceumm_libretro.zip fceumm_libretro.*
     
     - name: Upload core
       if: ${{ success() }}
