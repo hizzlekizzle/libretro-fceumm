@@ -128,7 +128,7 @@ jobs:
       run: ./libretro-fetch.sh fceumm
     - name: Build the core
       working-directory: libretro-super
-      run: ./libretro-build-android.sh fceumm
+      run: ./libretro-build-android-arm64_v8a.sh fceumm
     - name: Move lib out of libretro-super structure
       run: cp libretro-super/dist/*/fceumm_libretro* ./
     - name: Zip it up
