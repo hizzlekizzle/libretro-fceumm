@@ -29,9 +29,9 @@ jobs:
     - run: msys2do pacman -S --noconfirm --disable-download-timeout --needed git make mingw-w64-x86_64-binutils mingw-w64-x86_64-toolchain mingw-w64-x86_64-zlib mingw-w64-x86_64-pkg-config zip
       if: matrix.os == 'windows-latest'
 # Set up macOS build environment and download deps
-    - name: Install Dependencies (macOS)
-      run: xcode-select --install
-      if: matrix.os == 'macos-latest'
+#    - name: Install Dependencies (macOS)
+#      run: xcode-select --install
+#      if: matrix.os == 'macos-latest'
 # Start the build
     - uses: actions/checkout@v2
     - name: Fetch libretro-super
