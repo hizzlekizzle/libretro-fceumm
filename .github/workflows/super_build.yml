@@ -30,7 +30,7 @@ jobs:
       if: matrix.os == 'windows-latest'
 # Set up macOS build environment and download deps
     - name: Install Dependencies (macOS)
-      run: brew install zlib-devel git
+      run: xcode-select --install
       if: matrix.os == 'macos-latest'
 # Start the build
     - uses: actions/checkout@v2
