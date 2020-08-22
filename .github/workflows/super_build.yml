@@ -48,10 +48,11 @@ jobs:
       run: zip -9 fceumm_libretro.zip fceumm_libretro.*
     
     - name: Upload core
+      if: ${{ success() }}
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: fceumm_libretro.zip
-        tag: matrix.os
+        tag: ${{ matrix.os }}
         asset_name: fceumm_libretro.zip
         overwrite: true
