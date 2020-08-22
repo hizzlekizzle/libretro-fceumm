@@ -1,0 +1,57 @@
+name: FCEUmm-libretro Build
+
+on:
+  # Trigger the workflow on push,
+  # but only for the master branch
+  push:
+    branches:
+      - master
+  watch: # this is a hack that lets repo owners trigger a build by starring
+    types: [started]
+    if: github.actor == github.event.repository.owner.login
+
+jobs:
+  Super_Build:
+    strategy:
+      matrix:
+        os: ['ubuntu-latest', 'windows-latest', 'macos-latest']
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Install Dependencies (Linux)
+      run: sudo apt-get install build-essential git zlib1g-dev
+      if: matrix.os == 'ubuntu-latest'
+# Set up the Windows build environment and download deps
+    - uses: numworks/setup-msys2@v1
+      if: matrix.os == 'windows-latest'
+      with:
+        msystem: MINGW64
+    - run: msys2do pacman -S --noconfirm --disable-download-timeout --needed git make mingw-w64-x86_64-binutils mingw-w64-x86_64-toolchain mingw-w64-x86_64-zlib mingw-w64-x86_64-pkg-config zip
+      if: matrix.os == 'windows-latest'
+# Set up macOS build environment and download deps
+    - name: Install Dependencies (macOS)
+      run: brew install zlib-devel git
+      if: matrix.os == 'macos-latest'
+# Start the build
+    - uses: actions/checkout@v2
+    - name: Fetch libretro-super
+      run: git clone https://github.com/libretro/libretro-super.git
+    - name: Fetch the core source
+      working-directory: libretro-super
+      run: ./libretro-fetch.sh fceumm
+    - name: Build the core
+      working-directory: libretro-super
+      run: ./libretro-build.sh fceumm
+    - name: Move lib out of libretro-super structure
+      run: cp libretro-super/dist/*/fceumm_libretro* ./
+    - name: Zip it up
+      run: zip -9 fceumm_libretro.zip fceumm_libretro.*
+    
+    - name: Upload core
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: fceumm_libretro.zip
+        tag: matrix.os
+        asset_name: fceumm_libretro.zip
+        overwrite: true
