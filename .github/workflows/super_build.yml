@@ -120,6 +120,7 @@ jobs:
         arch: 'arm64'
         install-location: 'toolchains'
         force: true
+    - run: sudo mv toolchains /
     - uses: actions/checkout@v2
     - name: Fetch libretro-super
       run: git clone https://github.com/libretro/libretro-super.git
