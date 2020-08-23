@@ -117,7 +117,7 @@ jobs:
       uses: ravinderjangra/android-ndk-toolchain-setup@0.2
       with:
         api: '19'
-        arch: 'arm64'
+        arch: 'arm'
         install-location: 'toolchains'
         force: true
     - run: sudo mv toolchains /
@@ -129,7 +129,7 @@ jobs:
       run: ./libretro-fetch.sh fceumm
     - name: Build the core
       working-directory: libretro-super
-      run: ./libretro-build-android-arm64_v8a.sh fceumm
+      run: ./libretro-build-android-armeabi_v7a.sh  fceumm
     - name: Move lib out of libretro-super structure
       run: cp libretro-super/dist/*/fceumm_libretro* ./
     - name: Zip it up
