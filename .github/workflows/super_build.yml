@@ -106,21 +106,21 @@ jobs:
         overwrite: true
 
   Android_ARM64_Build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
-    - name: Install Dependencies (Linux)
-      run: sudo apt-get install build-essential git zlib1g-dev
-    - shell: bash
-      run: mkdir toolchains
-    - name: specify NDK
-      uses: ravinderjangra/android-ndk-toolchain-setup@0.2
-      with:
-        api: '21'
-        arch: 'arm64'
-        install-location: 'toolchains'
-        force: true
-    - run: sudo mv toolchains /
+#    - name: Install Dependencies (Linux)
+#      run: sudo apt-get install build-essential git zlib1g-dev
+#    - shell: bash
+#      run: mkdir toolchains
+#    - name: specify NDK
+#      uses: ravinderjangra/android-ndk-toolchain-setup@0.2
+#      with:
+#        api: '21'
+#        arch: 'arm64'
+#        install-location: 'toolchains'
+#        force: true
+#    - run: sudo mv toolchains /
     - uses: actions/checkout@v2
     - name: Fetch libretro-super
       run: git clone https://github.com/libretro/libretro-super.git
