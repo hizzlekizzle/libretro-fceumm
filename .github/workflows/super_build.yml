@@ -116,7 +116,7 @@ jobs:
     - name: specify NDK
       uses: ravinderjangra/android-ndk-toolchain-setup@0.2
       with:
-        api: '19'
+        api: '18'
         arch: 'arm'
         install-location: 'toolchains'
         force: true
@@ -141,6 +141,6 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: fceumm_libretro.so.zip
-        tag: Android_arm64_latest
+        tag: Android_arm_latest
         asset_name: fceumm_libretro.so.zip
         overwrite: true
