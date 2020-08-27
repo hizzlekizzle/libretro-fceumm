@@ -18,16 +18,19 @@ jobs:
     - name: Install Dependencies (Linux)
       run: sudo apt-get install build-essential git zlib1g-dev
     - uses: actions/checkout@v2
-    - name: Fetch libretro-super
-      run: git clone https://github.com/libretro/libretro-super.git
-    - name: Fetch the core source
-      working-directory: libretro-super
-      run: ./libretro-fetch.sh fceumm
+#    - name: Fetch libretro-super
+#      run: git clone https://github.com/libretro/libretro-super.git
+#    - name: Fetch the core source
+#      working-directory: libretro-super
+#      run: ./libretro-fetch.sh fceumm
     - name: Build the core
-      working-directory: libretro-super
-      run: ./libretro-build.sh fceumm
-    - name: Move lib out of libretro-super structure
-      run: cp libretro-super/dist/*/fceumm_libretro* ./
+#      working-directory: libretro-super
+#      run: ./libretro-build.sh fceumm
+      run: make -f Makefile.libretro -j8
+    - name: retro-strip binary
+      run: wget https://raw.githubusercontent.com/libretro/libretro-super/master/retrolink.sh && ./retrolink.sh fceumm_libretro.so
+#    - name: Move lib out of libretro-super structure
+#      run: cp libretro-super/dist/*/fceumm_libretro* ./
     - name: Zip it up
       run: zip -9 fceumm_libretro.so.zip fceumm_libretro.so
     
