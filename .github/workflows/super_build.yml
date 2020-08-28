@@ -28,7 +28,7 @@ jobs:
 #      run: ./libretro-build.sh fceumm
       run: make -f Makefile.libretro -j8
     - name: retro-strip binary
-      run: wget https://raw.githubusercontent.com/libretro/libretro-super/master/retrolink.sh && ./retrolink.sh fceumm_libretro.so
+      run: wget https://raw.githubusercontent.com/libretro/libretro-super/master/retrolink.sh && bash retrolink.sh fceumm_libretro.so
 #    - name: Move lib out of libretro-super structure
 #      run: cp libretro-super/dist/*/fceumm_libretro* ./
     - name: Zip it up
